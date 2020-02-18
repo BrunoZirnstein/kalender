@@ -41,6 +41,7 @@
         echo '<label class="itwc">Datum</label>'.getDateToDisplay($row["start"]).' - '.getDateToDisplay($row["finish"]).'<br /><br />';
         echo '<label class="itwc">Ort</label>'.$row["place"].'<br /><br />';
         echo '<label class="itwc">Ansprechpartner</label>'.$ansprechpartner["name"].' '.$ansprechpartner["lastname"].'<br /><br />';
+        echo '<a href="mailto: '.$ansprechpartner["email"].'">'.$ansprechpartner["email"].'</a>';
         ?></p>
 
     </body>
