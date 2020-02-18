@@ -36,7 +36,7 @@
         <a id="back" href="event-overview.php"><i class="material-icons">arrow_back</i>alle Events</a>
         <h1><?php echo $row["title"]; ?></h1>
         <p><?php
-        echo 'Datum: '.getDateToDisplay($row["start"]).' - '.getDateToDisplay($row["end"]).'<br />';
+        echo 'Datum: '.getDateToDisplay($row["start"]).' - '.getDateToDisplay($row["finish"]).'<br />';
         echo 'Ort: '.$row["place"].'<br />';
         echo 'Ansprechpartner: '.$ansprechpartner["name"].' '.$ansprechpartner["lastname"].'<br />';
         echo $row["description"];
