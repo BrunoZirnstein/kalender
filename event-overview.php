@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
-        <h1>Events</h1>
+        <h4 class="itwc">Events</h4>
         <?php
 
         $link = new mysqli('localhost', 'root', '', 'itwc20');
@@ -22,7 +22,7 @@
             while($row = $result->fetch_assoc()){
                 echo '<a href="event-detail.php?eid='.$row["eid"].'"><div class="event">';
                     echo $row["title"];
-                    echo '<button href="#" class="teilnehmen">Teilnehmen</button>';
+                    echo '<button href="#" class="itwc">Teilnehmen</button>';
                 echo '</div></a>';
             }
         } else {
