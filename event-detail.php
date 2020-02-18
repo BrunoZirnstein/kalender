@@ -6,6 +6,7 @@
     <head>
         <meta charset="utf-8" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="styles.css" />
         <link rel="stylesheet" href="event-detail-styles.css" />
     </head>
     <body>
