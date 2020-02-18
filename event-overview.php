@@ -2,10 +2,32 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <link href="event-overview-styles.css" />
+        <link rel="stylesheet" href="event-overview-styles.css" />
     </head>
     <body>
         <h1>Events</h1>
+        <?php
+
+        $link = new mysqli('localhost', 'root', '', 'it_wintercamp20');
+        if ($link->connect_error) {
+            die("linkection failed: " . $link->linkect_error);
+        }
+
+        $sql = "SELECT * FROM event";
+        $result = $link->query($sql);
+
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                echo '<div class="event">';
+                    echo $row["title"];
+                    echo '<button href="#" class="teilnehmen">Teilnehmen</button>';
+                echo '</div>';
+            }
+        } else {
+            echo "0 results";
+        }
+
+        ?>
 
     </body>
 </html>

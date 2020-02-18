@@ -1,0 +1,11 @@
+.event{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 5vmin;
+    border: 2px solid #000;
+    margin-bottom: 1vmin;
+    padding: 0 2vmin;
+    border-radius: 10px;
+}
