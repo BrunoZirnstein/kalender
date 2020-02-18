@@ -37,10 +37,10 @@
         <a id="back" href="event-overview.php"><i class="material-icons">arrow_back</i>alle Events</a>
         <h4 class="itwc"><?php echo $row["title"]; ?></h4>
         <p class="itwc"><?php
-        echo $row["description"];
-        echo '<label class="itwc">Datum</label>'.getDateToDisplay($row["start"]).' - '.getDateToDisplay($row["finish"]).'<br />';
-        echo '<label class="itwc">Ort</label>'.$row["place"].'<br />';
-        echo '<label class="itwc">Ansprechpartner</label>'.$ansprechpartner["name"].' '.$ansprechpartner["lastname"].'<br />';
+        echo $row["description"].'<br /><br />';
+        echo '<label class="itwc">Datum</label>'.getDateToDisplay($row["start"]).' - '.getDateToDisplay($row["finish"]).'<br /><br />';
+        echo '<label class="itwc">Ort</label>'.$row["place"].'<br /><br />';
+        echo '<label class="itwc">Ansprechpartner</label>'.$ansprechpartner["name"].' '.$ansprechpartner["lastname"].'<br /><br />';
         ?></p>
 
     </body>
