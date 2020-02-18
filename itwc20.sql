@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 18. Feb 2020 um 11:07
+-- Erstellungszeit: 18. Feb 2020 um 11:33
 -- Server-Version: 10.4.11-MariaDB
 -- PHP-Version: 7.3.14
 
@@ -19,10 +19,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Datenbank: `it_wintercamp20`
+-- Datenbank: `it-wintercamp2020`
 --
-CREATE DATABASE IF NOT EXISTS `it_wintercamp20` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `it_wintercamp20`;
+CREATE DATABASE IF NOT EXISTS `itwc20` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE `itwc20`;
 
 -- --------------------------------------------------------
 
@@ -31,11 +31,12 @@ USE `it_wintercamp20`;
 --
 
 CREATE TABLE `appointment` (
-  `aid` int(11) NOT NULL,
+  `aid` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL,
   `start` date NOT NULL,
-  `end` date NOT NULL,
-  `title` mediumtext COLLATE utf8_bin NOT NULL
+  `finish` date NOT NULL,
+  `title` varchar(255) NOT NULL,
+  PRIMARY KEY (`aid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -46,9 +47,10 @@ CREATE TABLE `appointment` (
 
 CREATE TABLE `company` (
   `cid` int(255) NOT NULL,
-  `name` varchar(255) COLLATE utf8_bin NOT NULL,
-  `contact` varchar(255) COLLATE utf8_bin NOT NULL,
-  `email` varchar(255) COLLATE utf8_bin NOT NULL
+  `name` varchar(255) NOT NULL,
+  `contact` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  PRIMARY KEY (`cid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
@@ -56,7 +58,9 @@ CREATE TABLE `company` (
 --
 
 INSERT INTO `company` (`cid`, `name`, `contact`, `email`) VALUES
-(1, 'SAP', 'Janine Steidelnmüller', 'janine.steidelmueller@sap.com');
+(1, 'SAP', 'Janine Steidelmüller', 'janine.steidelmueller@sap.com'),
+(2, 'MMS', 'Kristin Renger', 'kristin.renger@t-systems.com'),
+(3, 'Communardo', 'Julia Kullmann', 'julia.kullmann@communardo.de');
 
 -- --------------------------------------------------------
 
@@ -65,22 +69,18 @@ INSERT INTO `company` (`cid`, `name`, `contact`, `email`) VALUES
 --
 
 CREATE TABLE `event` (
-  `id` int(11) NOT NULL,
+  `eid` int(11) NOT NULL AUTO_INCREMENT,
   `start` date NOT NULL,
-  `end` date NOT NULL,
-  `title` mediumtext COLLATE utf8_bin NOT NULL,
-  `description` mediumtext COLLATE utf8_bin NOT NULL,
-  `type` mediumtext COLLATE utf8_bin NOT NULL,
-  `place` mediumtext COLLATE utf8_bin NOT NULL,
-  `size` int(11) NOT NULL
+  `finish` date NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `place` varchar(255) NOT NULL,
+  `size` int(11) NOT NULL,
+  `companies` varchar(255) NOT NULL,
+  `cid` int(11) NOT NULL,
+  PRIMARY KEY (`eid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Daten für Tabelle `event`
---
-
-INSERT INTO `event` (`id`, `start`, `end`, `title`, `description`, `type`, `place`, `size`) VALUES
-(1, '2020-04-01', '2020-04-17', '1. Test-Event', 'Test Beschreibung test', '', 'Riesaer Straße 5', 5);
 
 -- --------------------------------------------------------
 
@@ -102,7 +102,8 @@ CREATE TABLE `participant` (
 
 CREATE TABLE `role` (
   `rid` int(11) NOT NULL,
-  `label` varchar(255) COLLATE utf8_bin DEFAULT NULL
+  `label` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`rid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
@@ -122,65 +123,29 @@ INSERT INTO `role` (`rid`, `label`) VALUES
 --
 
 CREATE TABLE `user` (
-  `name` text COLLATE utf8_bin NOT NULL,
-  `lastname` text COLLATE utf8_bin NOT NULL,
-  `email` text COLLATE utf8_bin NOT NULL,
-  `password` text COLLATE utf8_bin NOT NULL,
-  `uid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `rid` int(11) NOT NULL,
-  `label` text COLLATE utf8_bin NOT NULL,
-  `stauts` tinyint(1) NOT NULL,
-  `created` date NOT NULL,
-  `updated` date NOT NULL,
+  `label` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `created` timestamp NOT NULL DEFAULT current_timestamp,
+  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE current_timestamp,
   `start` date NOT NULL,
-  `end` date NOT NULL,
-  `gender` text COLLATE utf8_bin NOT NULL
+  `finish` date NOT NULL,
+  `salutation` varchar(4) NOT NULL,
+  PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Indizes der exportierten Tabellen
+-- Daten für Tabelle `user`
 --
 
---
--- Indizes für die Tabelle `appointment`
---
-ALTER TABLE `appointment`
-  ADD PRIMARY KEY (`aid`);
+INSERT INTO `user` (`name`, `lastname`, `email`, `password`, `rid`, `label`, `status`, `start`, `finish`, `salutation`) VALUES
+('admin', 'admin', 'admin@example.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 0, 'Admin', 0, '2019-11-04', '2020-08-08', 'Herr');
 
---
--- Indizes für die Tabelle `company`
---
-ALTER TABLE `company`
-  ADD PRIMARY KEY (`cid`);
-
---
--- Indizes für die Tabelle `event`
---
-ALTER TABLE `event`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indizes für die Tabelle `role`
---
-ALTER TABLE `role`
-  ADD PRIMARY KEY (`rid`);
-
---
--- AUTO_INCREMENT für exportierte Tabellen
---
-
---
--- AUTO_INCREMENT für Tabelle `company`
---
-ALTER TABLE `company`
-  MODIFY `cid` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT für Tabelle `event`
---
-ALTER TABLE `event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
