@@ -29,7 +29,6 @@
                 if($result->num_rows == 1) {
                     $ansprechpartner = $result->fetch_assoc();
                 }
-
             } else {
                 echo "0 results";
             }
@@ -41,7 +40,17 @@
         echo '<label class="itwc">Datum</label>'.getDateToDisplay($row["start"]).' - '.getDateToDisplay($row["finish"]).'<br /><br />';
         echo '<label class="itwc">Ort</label>'.$row["place"].'<br /><br />';
         echo '<label class="itwc">Ansprechpartner</label>'.$ansprechpartner["name"].' '.$ansprechpartner["lastname"].'<br /><br />';
-        echo '<a href="mailto: '.$ansprechpartner["email"].'">'.$ansprechpartner["email"].'</a>';
+        echo '<a href="mailto: '.$ansprechpartner["email"].'">'.$ansprechpartner["email"].'</a><br /><br />';
+        echo '<label class="itwc">Teilnehmer</label>';
+
+        $sql = "SELECT * FROM `participant` JOIN user ON participant.uid = user.uid WHERE eid = ".$_GET["eid"]." ORDER BY pnr ASC";
+        $result = $link->query($sql);
+
+        if($result->num_rows > 0){
+            while($teilnehmer = $result->fetch_assoc()){
+                echo $teilnehmer["name"].' '.$teilnehmer["lastname"].'<br />';
+            }
+        }
         ?></p>
 
     </body>
