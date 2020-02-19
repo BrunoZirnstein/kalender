@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' />
+<link href='packages/core/main.css' rel='stylesheet' />
+<link href='packages/daygrid/main.css' rel='stylesheet' />
+<link href='packages/timegrid/main.css' rel='stylesheet' />
+<link href='packages/list/main.css' rel='stylesheet' />
+<script src='packages/core/main.js'></script>
+<script src='packages/interaction/main.js'></script>
+<script src='packages/daygrid/main.js'></script>
+<script src='packages/timegrid/main.js'></script>
+<script src='packages/list/main.js'></script>
+
+<?php
+
+$link = new mysqli('localhost', 'root', '', 'itwc20');
+mysqli_set_charset($link, 'utf8');
+
+echo "
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      plugins: [ 'interaction', 'dayGrid', 'list' ],
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,listYear'
+      },
+      navLinks: false, // can click day/week names to navigate views
+      businessHours: true, // display business hours
+      editable: false,
+      events: [";
+      $sql = "SELECT * FROM participant JOIN event ON participant.eid = event.eid WHERE participant.uid = ".$_GET["uid"];
+      $result = $link->query($sql);
+
+      if ($result->num_rows > 0) {
+          while($event = $result->fetch_assoc()){
+              echo "{title: '".$event["title"]."',";
+              echo "start: '".$event["start"]."',";
+              echo "end: '".date("Y-m-d", strtotime("1970-01-03") + strtotime($event["finish"]))."'},";
+              /*echo "rendering: 'background',";
+              echo "color: '#ff9f89'},";*/
+          }
+      }
+      
+  echo "{
+          title: 'IT-Camp',
+          start: '2019-08-03T13:00:00',
+          constraint: 'businessHours'
+        },
+        {
+          title: 'Meeting',
+          start: '2019-08-13T11:00:00',
+          constraint: 'availableForMeeting', // defined below
+          color: '#257e4a'
+        },
+        {
+          title: 'Conference',
+          start: '2019-08-18',
+          end: '2019-08-20'
+        },
+        {
+          title: 'Party',
+          start: '2019-08-29T20:00:00'
+        },
+";
+        $sql = "SELECT * FROM appointment WHERE uid = ".$_GET["uid"];
+        $result = $link->query($sql);
+
+        if ($result->num_rows > 0) {
+            while($appointment = $result->fetch_assoc()){
+                echo "{start: '".$appointment["start"]."',";
+                echo "end: '".$appointment["finish"]."',";
+                echo "overlap: false,";
+                echo "rendering: 'background',";
+                echo "color: '#ff9f89'},";
+            }
+        }
+
+        // red areas where no events can be dropped
+        /*{
+          start: '2019-08-24',
+          end: '2019-08-28',
+          overlap: false,
+          rendering: 'background',
+          color: '#ff9f89'
+        },
+        {
+          start: '2019-08-06',
+          end: '2019-08-08',
+          overlap: false,
+          rendering: 'background',
+          color: '#ff9f89'
+        }*/
+  echo "
+      ]
+    });
+
+    calendar.render();
+  });
+
+</script>
+";
+?>
+<style>
+
+  body {
+    margin: 40px 10px;
+    padding: 0;
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    font-size: 14px;
+  }
+
+  #calendar {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+</style>
+</head>
+<body>
+
+  <div id='calendar'></div>
+
+</body>
+</html>
