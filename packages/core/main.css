@@ -30,7 +30,7 @@ body .fc {
 .fc-nonbusiness {
   /* default look for non-business-hours areas */
   /* will inherit .fc-bgevent's styles */
-  background: #d7d7d7;
+  background: #D4E7E8;
 }
 
 /* Popover
@@ -577,7 +577,7 @@ TODO: more distinction between this file and common.css
 }
 
 .fc-unthemed td.fc-today {
-  background: #fcf8e3;
+  background: #D4E7E8;
 }
 
 .fc-unthemed .fc-disabled-day {
