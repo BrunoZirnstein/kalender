@@ -13,7 +13,7 @@ $dbname = "itwc20";
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 mysqli_set_charset($conn, 'utf8');
 
-$sql = "SELECT * FROM user WHERE uid = ".$_GET["uid"];
+$sql = "SELECT * FROM user WHERE uid = ".$_POST["uid"];
 $result = mysqli_query($conn, $sql);
 
 if ($result->num_rows == 1) {
@@ -65,7 +65,7 @@ if ($result->num_rows == 1) {
             businessHours: true, // display business hours
             editable: false,
             events: [";
-            $sql = "SELECT * FROM participant JOIN event ON participant.eid = event.eid WHERE participant.uid = ".$_GET["uid"];
+            $sql = "SELECT * FROM participant JOIN event ON participant.eid = event.eid WHERE participant.uid = ".$_POST["uid"];
             $result = $link->query($sql);
 
             if ($result->num_rows > 0) {
@@ -78,7 +78,7 @@ if ($result->num_rows == 1) {
                 }
             }
             
-                $sql = "SELECT * FROM appointment WHERE uid = ".$_GET["uid"];
+                $sql = "SELECT * FROM appointment WHERE uid = ".$_POST["uid"];
                 $result = $link->query($sql);
 
                 if ($result->num_rows > 0) {

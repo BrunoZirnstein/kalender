@@ -37,18 +37,20 @@
         <h4 class="itwc"><?php echo $row["title"]; ?></h4>
         <p class="itwc"><?php
         echo $row["description"].'<br /><br />';
-        echo '<label class="itwc">Datum</label>'.getDateToDisplay($row["start"]).' - '.getDateToDisplay($row["finish"]).'<br /><br />';
-        echo '<label class="itwc">Ort</label>'.$row["place"].'<br /><br />';
-        echo '<label class="itwc">Ansprechpartner</label>'.$ansprechpartner["name"].' '.$ansprechpartner["lastname"].'<br /><br />';
-        echo '<a href="mailto: '.$ansprechpartner["email"].'">'.$ansprechpartner["email"].'</a><br /><br />';
-        echo '<label class="itwc">Teilnehmer</label>';
+        echo '<label class="itwc">Datum</label><br />'.getDateToDisplay($row["start"]).' - '.getDateToDisplay($row["finish"]).'<br /><br />';
+        echo '<label class="itwc">Ort</label><br />'.$row["place"].'<br /><br />';
+        echo '<label class="itwc">Ansprechpartner</label><br />'.$ansprechpartner["name"].' '.$ansprechpartner["lastname"].'<br /><br />';
+        echo '<label class="itwc">E-Mail</label><br /><a href="mailto: '.$ansprechpartner["email"].'">'.$ansprechpartner["email"].'</a><br /><br />';
+        echo '<label class="itwc">Teilnehmer</label><br />';
 
         $sql = "SELECT * FROM `participant` JOIN user ON participant.uid = user.uid WHERE eid = ".$_GET["eid"]." ORDER BY pnr ASC";
         $result = $link->query($sql);
 
         if($result->num_rows > 0){
+            $i = 1;
             while($teilnehmer = $result->fetch_assoc()){
-                echo '<a href="profil.php?uid='.$teilnehmer["uid"].'">'.$teilnehmer["name"].' '.$teilnehmer["lastname"].'</a><br />';
+                echo '<a href="profil.php?uid='.$teilnehmer["uid"].'">'.$i.'. '.$teilnehmer["name"].' '.$teilnehmer["lastname"].'</a><br />';
+                $i++;
             }
         }
         ?></p>
