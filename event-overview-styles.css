@@ -32,3 +32,11 @@
     justify-content: right;
     align-items: center;
 }
+
+.green{
+    border-color: lightgreen;
+}
+
+.red{
+    border-color: red;
+}
