@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="event-overview-styles.css" />
-        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="general.css" />
     </head>
     <body>
         <h4 class="itwc">Events</h4>
