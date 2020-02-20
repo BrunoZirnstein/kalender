@@ -72,9 +72,9 @@ if ($result->num_rows == 1) {
                 while($event = $result->fetch_assoc()){
                     echo "{title: '".$event["title"]."',";
                     echo "start: '".$event["start"]."',";
-                    echo "end: '".date("Y-m-d", strtotime("1970-01-03") + strtotime($event["finish"]))."'},";
-                    /*echo "rendering: 'background',";
-                    echo "color: '#ff9f89'},";*/
+                    echo "end: '".date("Y-m-d", strtotime("1970-01-03") + strtotime($event["finish"]))."',";
+                    /*echo "rendering: 'background',";*/
+                    echo "color: '#AFA0A0'},";
                 }
             }
             
@@ -87,7 +87,7 @@ if ($result->num_rows == 1) {
                         echo "end: '".$appointment["finish"]."',";
                         echo "overlap: false,";
                         echo "rendering: 'background',";
-                        echo "color: '#ff9f89'},";
+                        echo "color: '#F57C7C'},";
                     }
                 }
         echo "
