@@ -1,16 +1,17 @@
-* {
+body, input, select, option {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
     color: #008fd3;
 }
 
-label.itwc {
+label.itwc, .itwc label {
     display:block;
     margin: 15px 0 10px 0;
     font-weight: bold;
+    display: inline-block;
 }
 
-input.itwc {
+input:not([type="submit"]).itwc, .itwc input:not([type="submit"]), select {
     display: block;
     padding: 8px;
     border: 3px solid #008fd3;
@@ -19,18 +20,22 @@ input.itwc {
     width: 100%;
 }
 
-input.itwc:focus {
+input[type="date"].itwc, .itwc input[type="date"] {
+    width: auto;
+}
+
+input:not([type="submit"]).itwc:focus, .itwc input:not([type="submit"]):focus {
     border: 3px solid #ec6607;
     color: #ec6607;
 }
 
-h4.itwc{
+h4.itwc, .itwc h4 {
     color: #ec6607;
     font-size: 24px;
     margin: 20px 0px 10px 0px;
 }
 
-button.itwc{
+button.itwc, .itwc button, input[type="submit"].itwc, .itwc input[type="submit"] {
     background-color: #ec6607;
     color: #ffffff;
     appearance: none;
@@ -41,7 +46,16 @@ button.itwc{
     display: inline-block;
 }
 
-a.itwc{
+button:hover.itwc, .itwc button:hover, input[type="submit"]:hover.itwc, .itwc input[type="submit"]:hover {
+    background-color: #ff9800;
+    cursor: pointer;
+}
+
+a.itwc, .itwc a {
     color: #ec6607;
     text-decoration: none;
+}
+
+a.itwc:hover, .itwc a:hover{
+    color: #f0a202;
 }

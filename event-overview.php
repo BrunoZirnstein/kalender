@@ -9,6 +9,12 @@
         <h4 class="itwc">Events</h4>
         <?php
 
+        if($_SESSION["rank"]){
+            ?>
+            <button id="form">+</button>
+            <?php
+        }
+
         $link = new mysqli('localhost', 'root', '', 'itwc20');
         mysqli_set_charset($link, 'utf8');
         if ($link->connect_error) {
@@ -20,7 +26,7 @@
 
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()){
-                echo '<a href="event-detail.php?eid='.$row["eid"].'"><div class="event">';
+                echo '<a class="itwc" href="event-detail.php?eid='.$row["eid"].'"><div class="itwc event">';
                     echo $row["title"];
                     echo '<button href="#" class="itwc">Teilnehmen</button>';
                 echo '</div></a>';
