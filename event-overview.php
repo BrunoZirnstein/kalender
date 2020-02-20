@@ -37,9 +37,15 @@
                 }
                 echo '<a class="itwc" href="event-detail.php?eid='.$row["eid"].'"><div class="itwc event">';
                     echo $row["title"];
-                    echo '<div id="right">';
+                    echo '<div class="right">';
                         echo '<div style="margin-right: 10px;">'.$count.'/'.$row["size"].'</div>';
-                        echo '<button href="#" class="itwc">Teilnehmen</button>';
+                        ?>
+                        <form style="margin: 0;" method="post" action="teilnehmen.php">
+                            <input type="hidden" name="eid" value="<?php echo $row["eid"] ?>" />
+                            <input style="margin: 0;" type="submit" value="Teilnehmen" />
+                        </form>
+
+                        <?php
                     echo '</div>';
                 echo '</div></a>';
             }
