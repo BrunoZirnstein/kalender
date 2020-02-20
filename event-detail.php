@@ -35,15 +35,19 @@
         ?>
         <a id="back" href="event-overview.php"><i class="material-icons">arrow_back</i>alle Events</a>
         <h4 class="itwc"><?php echo $row["title"]; ?></h4>
-        <p class="itwc"><?php
+        <?php
         echo $row["description"].'<br /><br />';
-        if($_SESSION["rank"] == 4){
+        if(isset($_SESSION["rank"]) && $_SESSION["rank"] == 4){
             echo 'Id: '.$row["eid"].'<br /><br />';
         }
         echo '<label class="itwc">Datum</label><br />'.getDateToDisplay($row["start"]).' - '.getDateToDisplay($row["finish"]).'<br /><br />';
         echo '<label class="itwc">Ort</label><br />'.$row["place"].'<br /><br />';
-        echo '<label class="itwc">Ansprechpartner</label><br />'.$ansprechpartner["name"].' '.$ansprechpartner["lastname"].'<br /><br />';
-        echo '<label class="itwc">E-Mail</label><br /><a href="mailto: '.$ansprechpartner["email"].'">'.$ansprechpartner["email"].'</a><br /><br />';
+        echo '<label class="itwc">Ansprechpartner</label>'?>
+        <form action="profil.php" method="post">
+            <input type="hidden" name="uid" <?php echo 'value="'.$ansprechpartner['uid'].'"' ?> />
+            <input style="border: none; background-color: transparent; cursor: pointer; padding: 0;" type="submit" value="<?php echo $ansprechpartner["name"].' '.$ansprechpartner["lastname"] ?>" /><br />
+        </form><?php '<br /><br />';
+        echo '<label class="itwc">E-Mail</label><br /><a class="itwc" href="mailto: '.$ansprechpartner["email"].'">'.$ansprechpartner["email"].'</a><br /><br />';
         echo '<label class="itwc">Teilnehmer</label><br />';
 
         $sql = "SELECT * FROM `participant` JOIN user ON participant.uid = user.uid WHERE eid = ".$_GET["eid"]." ORDER BY pnr ASC";
@@ -55,13 +59,13 @@
                 ?>
                 <form action="profil.php" method="post">
                     <input type="hidden" name="uid" <?php echo 'value="'.$teilnehmer['uid'].'"' ?> />
-                    <input style="border: none; background-color: transparent; cursor: pointer;" type="submit" value="<?php echo $i.'. '.$teilnehmer["name"].' '.$teilnehmer["lastname"] ?>" /><br />
+                    <input style="border: none; background-color: transparent; cursor: pointer; padding: 0;" type="submit" value="<?php echo $i.'. '.$teilnehmer["name"].' '.$teilnehmer["lastname"] ?>" /><br />
                 </form>
                 <?php
                 $i++;
             }
         }
-        ?></p>
+        ?>
         
 
     </body>
