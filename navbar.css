@@ -1,0 +1,163 @@
+html { overflow-x: hidden; }
+
+body { background-color: #e7e1ff; }
+
+@media (prefers-color-scheme: dark) { body { background-color: #433d5b; }}
+
+.sidenav {
+    width: 20%;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #d1006c;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+  
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 22px;
+    color: #ffffff;
+    display: block;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+.sidenav a i { transition: 0.3s; }
+  
+.sidenav a:hover, .sidenav a:hover i {
+    color: #ffa6e9;
+}
+  
+.sidenav .closebtn {
+    position: absolute;
+    display: none;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.sidenav i {
+    color: #fff;
+    margin-right: 10px;
+}
+
+#openbtn {
+    font-size: 45px;
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    height: 100px;
+    width: 80px;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+#desing-content {
+    position: absolute;
+    width: 80%;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    transition: right 0.5s;
+}
+
+#page-content {
+    padding: 0 80px;
+}
+
+.menu-search {
+    display: flex;
+    padding: 10px 20px;
+}
+
+#page-search {
+    display: none;
+    background-color: #dfdfdf;
+    padding: 10px 20px;
+}
+
+.menu-search input[type="text"], #page-search input[type="text"] {
+    flex: 1;
+    border-radius: 10px 0 0 10px;
+    border: none;
+    padding: 5px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    min-width: 0;
+    margin: 0;
+}
+
+.menu-search input[type="submit"], #page-search input[type="submit"] {
+    border-radius: 0 10px 10px 0;
+    border: none;
+    background-color: #eee;
+    appearance: none;
+    margin: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+#page-head {
+    display: flex;
+    justify-content: space-between;
+    height: 100px;
+    padding: 10px 80px;
+    align-items: center;
+}
+
+#page-head h2 {
+    margin: 0;
+    margin-right: 20px;
+    font-size: 40px;
+    color: #ec6607;
+}
+
+#page-head div {
+    height: 100px;
+    flex: 1;
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: contain;
+}
+  
+@media screen and (max-width: 875px) {
+
+    .sidenav a { font-size: 18px; }
+
+    .sidenav .closebtn { display: block; }
+
+    .sidenav { width: 0; }
+
+    .sidenav.navOpen { width: 200px; }
+
+    #openbtn { top: 55px; }
+
+    .menu-search { display: none; }
+    
+    #page-search { display: flex; }
+
+    #desing-content { width: 100%; }
+
+    #desing-content.navOpen { right: -200px; }
+
+}
+
+@media screen and (max-width: 700px) {
+
+    #page-head { padding-right: 20px; }
+
+    #page-head div { display: none; }
+
+    #page-content { padding: 0 20px; }
+
+}
