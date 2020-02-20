@@ -48,10 +48,11 @@
 
         if($result->num_rows > 0){
             while($teilnehmer = $result->fetch_assoc()){
-                echo $teilnehmer["name"].' '.$teilnehmer["lastname"].'<br />';
+                echo '<a href="profil.php?uid='.$teilnehmer["uid"].'">'.$teilnehmer["name"].' '.$teilnehmer["lastname"].'</a><br />';
             }
         }
         ?></p>
+        
 
     </body>
 </html>
