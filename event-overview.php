@@ -21,11 +21,39 @@
             die("linkection failed: " . $link->linkect_error);
         }
 
+        if(isset($_POST["submitted"]) && $_POST["submitted"] == true){
+            $sql = "SELECT MAX(pnr) AS 'pnr' FROM `participant` WHERE eid =" . $_POST["eid"];
+            $result = $link->query($sql);
+
+            if ($result->num_rows == 1) {
+                $row = $result->fetch_assoc();
+                $new_pnr = $row["pnr"] + 1;
+            }
+
+            $sql = "INSERT INTO `participant`(`pnr`, `uid`, `eid`)
+            VALUES (".$new_pnr.", ".$_SESSION["user"].", ".$_POST["eid"].")";
+
+            if (mysqli_query($link, $sql)) {
+                echo '<script>alert("Erfolgreich eingetragen")</script>';
+            } else {
+                echo '<script>alert("Teilnahme konnte nicht eingetragen werden")</script>';
+            }
+        }
+
         $sql = "SELECT * FROM event";
         $result = $link->query($sql);
 
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()){
+                $already = false;
+
+                $already_sql = "SELECT * FROM participant WHERE eid = ".$row["eid"]." AND uid = ".$_SESSION["user"];
+                $already_result = $link->query($already_sql);
+                //echo $already_result->num_rows.'<br />';
+
+                if($already_result->num_rows > 0){
+                    $already = true;
+                }
 
                 $event_sql = "SELECT * FROM `participant` JOIN event ON participant.eid = event.eid WHERE participant.uid = ".$_SESSION["user"];
                 $event_result = $link->query($event_sql);
@@ -64,9 +92,10 @@
                     echo '<div class="right">';
                         echo '<div style="margin-right: 10px;">'.$count.'/'.$row["size"].'</div>';
                         ?>
-                        <form style="margin: 0;" method="post" action="teilnehmen.php">
+                        <form style="margin: 0;" method="post">
                             <input type="hidden" name="eid" value="<?php echo $row["eid"] ?>" />
-                            <input style="margin: 0;" type="submit" value="Teilnehmen" <?php if($available == false){echo ' disabled';} ?> />
+                            <input type="hidden" name="submitted" value="true" />
+                            <input style="margin: 0;" type="submit" value="<?php if($already == true){echo 'Bereits eingetragen';} else{echo 'Teilnehmen';} echo '"'; if($available == false || $already == true){echo ' disabled';} ?> />
                         </form>
 
                         <?php
