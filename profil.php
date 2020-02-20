@@ -74,7 +74,7 @@ if ($result->num_rows == 1) {
                     echo "start: '".$event["start"]."',";
                     echo "end: '".date("Y-m-d", strtotime("1970-01-03") + strtotime($event["finish"]))."',";
                     /*echo "rendering: 'background',";*/
-                    echo "color: '#AFA0A0'},";
+                    echo "color: '#EC6607'},";
                 }
             }
             

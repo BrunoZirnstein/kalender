@@ -25,3 +25,10 @@
     background-color: #008FD3;
     cursor: pointer;
 }
+
+#right{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+}

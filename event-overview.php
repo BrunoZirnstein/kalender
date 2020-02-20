@@ -26,9 +26,21 @@
 
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()){
+                $count = 0;
+                $participant_sql = "SELECT * FROM participant WHERE eid = ".$row["eid"];
+                $participant_result = $link->query($participant_sql);
+
+                if ($participant_result->num_rows > 0) {
+                    while($participants = $participant_result->fetch_assoc()){
+                        $count++;
+                    }
+                }
                 echo '<a class="itwc" href="event-detail.php?eid='.$row["eid"].'"><div class="itwc event">';
                     echo $row["title"];
-                    echo '<button href="#" class="itwc">Teilnehmen</button>';
+                    echo '<div id="right">';
+                        echo '<div style="margin-right: 10px;">'.$count.'/'.$row["size"].'</div>';
+                        echo '<button href="#" class="itwc">Teilnehmen</button>';
+                    echo '</div>';
                 echo '</div></a>';
             }
         } else {
