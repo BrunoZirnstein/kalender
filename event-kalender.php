@@ -40,9 +40,8 @@ echo "
           while($event = $result->fetch_assoc()){
               echo "{title: '".$event["title"]."',";
               echo "start: '".$event["start"]."',";
-              echo "end: '".date("Y-m-d", strtotime("1970-01-03") + strtotime($event["finish"]))."'},";
-              /*echo "rendering: 'background',";
-              echo "color: '#ff9f89'},";*/
+              echo "end: '".date("Y-m-d", strtotime("1970-01-03") + strtotime($event["finish"]))."',";
+              echo "color: '#EC6607'},";
           }
       }
   echo "
